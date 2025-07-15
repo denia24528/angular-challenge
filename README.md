@@ -30,3 +30,36 @@ Don't get lost by moving the visuals in a perfect way with perfect colors.
 Focus on the core.
 And enjoy!
 
+
+## How to Run the Project
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server:**
+   ```bash
+   nx serve aircraft-search
+   ```
+   The app will be available at [http://localhost:4200](http://localhost:4200).
+
+---
+
+## Example Searches
+
+- **Aircraft by registration code:**  
+  Enter `N8732S` or multiple codes separated by commas or spaces, e.g. `N8732S,D-EEZX` or `N8732S D-EEZX`. Or you can use any number <1000 e.g. `99,250,388` or `99 250 388`
+- **Callsign search:**  
+  Switch to "Callsign" and enter a callsign like `DLH123` or multiple callsigns, e.g. `DLH123,BAW456` or `DLH123 BAW456`.
+
+---
+
+## What Was Done & How It Works
+
+- The project uses Nx monorepo structure with Angular 20 and Angular Material for UI components.
+- The main app (`aircraft-search`) is modular and leverages standalone components and lazy-loaded features.
+- The search form allows users to select between searching for aircraft by registration code or by callsign. Multiple values can be entered at once, separated by commas.
+- When a search is submitted, the app splits the input and sends parallel requests to the ADSBdb API for each value.
+- Results are displayed using Material cards, showing relevant details for each aircraft or flight route.
+- Basic error handling is implemented: if a value does not exist or the API returns an error, a clear message is shown to the user.

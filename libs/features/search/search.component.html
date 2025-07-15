@@ -1,0 +1,89 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+  <mat-card class="search-card">
+    <mat-card-content>
+      <div class="form-row">
+        <mat-radio-group formControlName="selectedType" class="radio-group">
+          <mat-radio-button value="aircraft" (click)="onTypeChange()">Aircraft</mat-radio-button>
+          <mat-radio-button value="callsign" (click)="onTypeChange()">Callsign</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field appearance="outline" class="input-field">
+          <input matInput formControlName="inputValue" placeholder="Enter value/values">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Search</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="results-container">
+    @if (searchForm.get('selectedType')?.value === 'aircraft') {
+      @for (aircraft of aircrafts; track aircraft.mode_s) {
+        <mat-card class="result-card">
+          <mat-card-header>
+            <img mat-card-avatar [src]="aircraft.url_photo_thumbnail" alt="Aircraft photo" class="aircraft-photo" />
+            <mat-card-title class="label">{{ aircraft.mode_s }}</mat-card-title>
+            <mat-card-subtitle class="label">{{ aircraft.manufacturer }} {{ aircraft.icao_type }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-row">
+              <span class="label">Country:</span>
+              <span>{{ aircraft.registered_owner_country_name }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Owner:</span>
+              <span>{{ aircraft.registered_owner }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      } @empty {
+        <mat-card class="empty-card">
+          <mat-card-content>
+            <span>There are no items.</span>
+          </mat-card-content>
+        </mat-card>
+      }
+    } @else {
+      @for (flightroute of flightRoutes; track flightroute.callsign) {
+        <mat-card class="result-card">
+          <mat-card-header>
+            <mat-card-title>{{ flightroute.callsign }}</mat-card-title>
+            <mat-card-subtitle>{{ flightroute.airline?.name }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-row">
+              <span class="label">Airline Country:</span>
+              <span>{{ flightroute.airline?.country }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Fly From:</span>
+              <span>
+                {{ flightroute.origin?.country_name }},
+                {{ flightroute.origin?.municipality }},
+                {{ flightroute.origin?.name }}
+              </span>
+            </div>
+            <div class="info-row">
+              <span class="label">To:</span>
+              <span>
+                {{ flightroute.destination?.country_name }},
+                {{ flightroute.destination?.municipality }},
+                {{ flightroute.destination?.name }}
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      } @empty {
+        <mat-card class="empty-card">
+          <mat-card-content>
+            <span>There are no items.</span>
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+  </div>
+</form>
