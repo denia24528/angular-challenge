@@ -9,7 +9,7 @@
         <mat-form-field appearance="outline" class="input-field">
           <input matInput formControlName="inputValue" placeholder="Enter value/values">
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Search</button>
+        <button mat-raised-button type="submit">Search</button>
       </div>
     </mat-card-content>
   </mat-card>
@@ -19,7 +19,9 @@
       @for (aircraft of aircrafts; track aircraft.mode_s) {
         <mat-card class="result-card">
           <mat-card-header>
-            <img mat-card-avatar [src]="aircraft.url_photo_thumbnail" alt="Aircraft photo" class="aircraft-photo" />
+            @if (aircraft.url_photo_thumbnail) {
+              <img mat-card-avatar [src]="aircraft.url_photo_thumbnail" alt="Aircraft photo" class="aircraft-photo" />
+            }
             <mat-card-title class="label">{{ aircraft.mode_s }}</mat-card-title>
             <mat-card-subtitle class="label">{{ aircraft.manufacturer }} {{ aircraft.icao_type }}</mat-card-subtitle>
           </mat-card-header>

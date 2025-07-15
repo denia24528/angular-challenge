@@ -7,6 +7,7 @@ $primary-dark: #006;
   flex-direction: column;
   align-items: center;
   margin-top: 32px;
+  color: $primary-dark;
 }
 
 .search-card {
@@ -25,6 +26,9 @@ $primary-dark: #006;
   button {
     height: 40px;
     font-size: medium;
+    background-color: #fdcf6b;
+    border-color: $primary-dark;
+    color: $primary-dark;
   }
 }
 
@@ -37,6 +41,8 @@ $primary-dark: #006;
   height: 50px;
   input {
     padding: 2px 10px;
+    border-color: $primary-dark;
+    color: $primary-dark;
   }
 }
 
